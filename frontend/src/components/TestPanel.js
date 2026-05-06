@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 const ACTIONS = ['login_attempt','port_scan','malware_activity','file_access','brute_force','ddos'];
-const BACKEND  = 'http://localhost:5000';
+const BACKEND  = 'https://ai-threat-detection-c4p3.onrender.com';
 
 function TestPanel({ onRefresh }) {
   const [ip,      setIp]      = useState('8.8.8.8');
