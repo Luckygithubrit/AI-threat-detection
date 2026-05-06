@@ -19,7 +19,10 @@ const httpServer = createServer(app);
 // ── Socket.IO Setup ──────────────────────────────────────────
 const io = new Server(httpServer, {
   cors: {
-    origin: 'http://localhost:3000',
+    origin: [
+      'http://localhost:3000',
+      'https://ai-threat-detection-sigma.vercel.app'
+    ],
     methods: ['GET', 'POST']
   }
 });
@@ -28,7 +31,13 @@ const io = new Server(httpServer, {
 app.set('io', io);
 
 // ── Middleware ───────────────────────────────────────────────
-app.use(cors({ origin: 'http://localhost:3000' }));
+app.use(cors({
+  origin: [
+    'http://localhost:3000',
+    'https://ai-threat-detection-sigma.vercel.app'
+  ],
+  methods: ['GET', 'POST']
+}));
 app.use(express.json());
 
 // ── Routes ───────────────────────────────────────────────────
@@ -38,18 +47,21 @@ app.use('/api/stats',     statsRoutes);
 
 // ── Health Check ─────────────────────────────────────────────
 app.get('/', (req, res) => {
-  res.json({ status: 'Cyber Threat Detection System Running', time: new Date() });
+  res.json({ 
+    status: 'Cyber Threat Detection System Running', 
+    time: new Date() 
+  });
 });
 
 // ── MongoDB Connection ───────────────────────────────────────
 const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/cyberthreat';
 
-mongoose.connect(process.env.MONGO_URI)
+mongoose.connect(MONGO_URI)
   .then(() => {
     console.log('✅ MongoDB Connected');
     const PORT = process.env.PORT || 5000;
     httpServer.listen(PORT, () => {
-      console.log(`🚀 Server running on port${PORT}`);
+      console.log(`🚀 Server running on http://localhost:${PORT}`);
     });
   })
   .catch(err => {
