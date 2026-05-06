@@ -130,3 +130,6 @@ def model_info():
 if __name__ == '__main__':
     print("🤖 Starting AI Threat Detection Engine on port 7000...")
     app.run(host='127.0.0.1', port=7000, debug=False)
+
+
+# by lucky
