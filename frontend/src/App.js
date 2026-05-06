@@ -8,7 +8,7 @@ import axios from 'axios';
 import Dashboard from './pages/Dashboard';
 import './App.css';
 
-const BACKEND = 'http://localhost:5000';
+const BACKEND = 'https://ai-threat-detection-c4p3.onrender.com';
 
 function App() {
   const [threats,    setThreats]    = useState([]);
